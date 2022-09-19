@@ -7,11 +7,13 @@
   "author": "Smart Moov <dev@smart-moov.fr>",
   "license": "MIT",
   "scripts": {
-    "build": "babel ./src --out-dir ./dist --source-maps --copy-files"
+    "build": "babel ./src --out-dir ./dist --source-maps --copy-files",
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.0",
     "@babel/core": "^7.17.2",
-    "@babel/preset-env": "^7.16.11"
+    "@babel/preset-env": "^7.16.11",
+    "jest": "^29.0.3"
   }
 }
