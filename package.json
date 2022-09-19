@@ -1,0 +1,17 @@
+{
+  "name": "@smart-moov/orm-to-api",
+  "description": "Creates full-featured REST API with your favorite ODM/ORM, with automatic OpenAPI documentation.",
+  "version": "0.0.1",
+  "main": "dist/index.js",
+  "repository": "git@github.com:smart-moov/orm-to-api.git",
+  "author": "Smart Moov <dev@smart-moov.fr>",
+  "license": "MIT",
+  "scripts": {
+    "build": "babel ./src --out-dir ./dist --source-maps --copy-files"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.0",
+    "@babel/core": "^7.17.2",
+    "@babel/preset-env": "^7.16.11"
+  }
+}
