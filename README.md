@@ -1,4 +1,4 @@
-# ORM2API
+# orm-to-api
 
 Simple library to create API, with your favorite ORM/ODM, http framework.
 
@@ -13,22 +13,22 @@ Simple library to create API, with your favorite ORM/ODM, http framework.
 
 ## Installation
 
-Install @guillaume-gagnaire/orm-to-api with `npm`
+Install orm-to-api with `npm`
 
 ```bash
-npm install @guillaume-gagnaire/orm-to-api --save
+npm install orm-to-api --save
 ```
 
 or with `yarn`
 
 ```bash
-yarn add @guillaume-gagnaire/orm-to-api
+yarn add orm-to-api
 ```
 
 ## API instanciation
 
 ```js
-import { Api, collection } from '@guillaume-gagnaire/orm-to-api'
+import { Api, collection } from 'orm-to-api'
 
 const api = new Api({
   // options, see Api Options section
@@ -87,7 +87,7 @@ import {
   apiAccess,
   apiAccepts,
   apiReturns
-} from '@guillaume-gagnaire/orm-to-api'
+} from 'orm-to-api'
 
 export default class UsersController {
   @apiTitle('Login')
@@ -125,7 +125,7 @@ import {
   useListModel,
   useReplaceModel,
   useUpdateModel
-} from '@guillaume-gagnaire/orm-to-api'
+} from 'orm-to-api'
 import UserModel from '../models/User'
 
 controller(
