@@ -1,4 +1,4 @@
-import { getProperty, setProperty, hasProperty, deleteProperty } from 'dot-prop'
+import { getProperty, setProperty } from 'dot-prop'
 
 const options = {}
 
