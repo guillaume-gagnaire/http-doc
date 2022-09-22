@@ -150,7 +150,7 @@ The `id` param, in the route, is mandatory to allow theses generic controllers t
 
 ACL is based on custom strings, like `admin`, `users:list`, per example. You define which permissions a user have, and he'll be able to access only routes with correct permissions.
 
-### Examples
+### Example
 
 ```js
 import { Api, collection } from 'orm-to-api'
@@ -208,11 +208,13 @@ Example :
 }
 ```
 
+More info on OpenAPI Schemas [here](https://swagger.io/specification/#schema-object).
+
 ## Input data filtering
 
 You can filter input data with `accepts` configuration field on routes.
 
-### Examples
+### Example
 
 ```js
 import { collection } from 'orm-to-api'
@@ -234,6 +236,42 @@ controller('Users', router => {
         description: 'If user is admin'
       }
     ]
+  })
+})
+```
+
+## Returned data filtering
+
+With `returns` route configuration parameter, you can automatically filter data returned by your controller according to an OpenAPI Schema, accordingly to the returned HTTP code.
+
+### Example
+
+```js
+import { collection } from 'orm-to-api'
+import UserGetFilter from '../schemas/UserGetFilter.json'
+
+controller('Users', router => {
+  router.get('/', listController, {
+    returns: {
+      200: 'schemas/UserLite',
+      403: 'schemas/Error',
+      500: 'schemas/Error'
+    }
+  })
+  router.get('/:id', listController, {
+    returns: {
+      200: 'schemas/User',
+      403: 'schemas/Error',
+      500: 'schemas/Error'
+    }
+  })
+  router.post('/', createController, {
+    returns: {
+      201: 'schemas/User',
+      400: 'schemas/Error',
+      403: 'schemas/Error',
+      500: 'schemas/Error'
+    }
   })
 })
 ```
