@@ -20,11 +20,10 @@ controller(
     })
 
     route.post('/', useCreateModel, {
-      accepts: request => {
-        const fields = ['name', 'email', 'avatar']
-        if (request.user?.admin) fields.push('admin')
-        return fields
-      },
+      accepts: [
+        'UserCreate',
+        { schema: 'UserCreateAdmin', handler: request => !!request.user?.admin }
+      ],
       returns: {
         201: 'User',
         500: 'Error'
