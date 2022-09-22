@@ -182,6 +182,62 @@ controller('Users', router => {
 })
 ```
 
+## OpenAPI Schemas
+
+Input data and returned data filtering works with OpenAPI Schemas, stored where you want on your project folder in `JSON` format. References are relative to index script location.
+
+Example :
+
+```json
+{
+  "type": "object",
+  "required": ["name"],
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "address": {
+      "$ref": "schemas/Address"
+    },
+    "age": {
+      "type": "integer",
+      "format": "int32",
+      "minimum": 0
+    }
+  }
+}
+```
+
+## Input data filtering
+
+You can filter input data with `accepts` configuration field on routes.
+
+### Examples
+
+```js
+import { collection } from 'orm-to-api'
+import UserGetFilter from '../schemas/UserGetFilter.json'
+
+controller('Users', router => {
+  router.get('/', listController, {
+    accepts: 'schemas/UserListFilters'
+  })
+  router.get('/:id', listController, {
+    accepts: UserGetFilter
+  })
+  router.post('/', createController, {
+    accepts: [
+      'schemas/UserCreate',
+      {
+        schema: 'schemas/UserCreateAdmin',
+        handler: request => !!request.user?.admin,
+        description: 'If user is admin'
+      }
+    ]
+  })
+})
+```
+
 ## Authors
 
 - [@guillaume-gagnaire](https://www.github.com/guillaume-gagnaire)
