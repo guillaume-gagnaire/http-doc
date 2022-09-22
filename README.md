@@ -13,22 +13,22 @@ Simple library to create API, with your favorite ORM/ODM, http framework.
 
 ## Installation
 
-Install @smart-moov/orm-to-api with `npm`
+Install @guillaume-gagnaire/orm-to-api with `npm`
 
 ```bash
-npm install @smart-moov/orm-to-api --save
+npm install @guillaume-gagnaire/orm-to-api --save
 ```
 
 or with `yarn`
 
 ```bash
-yarn add @smart-moov/orm-to-api
+yarn add @guillaume-gagnaire/orm-to-api
 ```
 
 ## API instanciation
 
 ```js
-import { Api, collection } from '@smart-moov/orm-to-api'
+import { Api, collection } from '@guillaume-gagnaire/orm-to-api'
 
 const api = new Api({
   // options, see Api Options section
@@ -87,7 +87,7 @@ import {
   apiAccess,
   apiAccepts,
   apiReturns
-} from '@smart-moov/orm-to-api'
+} from '@guillaume-gagnaire/orm-to-api'
 
 export default class UsersController {
   @apiTitle('Login')
@@ -125,7 +125,7 @@ import {
   useListModel,
   useReplaceModel,
   useUpdateModel
-} from '@smart-moov/orm-to-api'
+} from '@guillaume-gagnaire/orm-to-api'
 import UserModel from '../models/User'
 
 controller(

@@ -1,10 +1,10 @@
 {
-  "name": "@smart-moov/orm-to-api",
+  "name": "orm-to-api",
   "description": "Creates full-featured REST API with your favorite ODM/ORM, with automatic OpenAPI documentation.",
   "version": "0.0.1",
   "main": "dist/index.js",
-  "repository": "git@github.com:smart-moov/orm-to-api.git",
-  "author": "Smart Moov <dev@smart-moov.fr>",
+  "repository": "git@github.com:guillaume-gagnaire/orm-to-api.git",
+  "author": "Guillaume Gagnaire <contact@scrola.net>",
   "license": "MIT",
   "scripts": {
     "build": "babel ./src --out-dir ./dist --source-maps --copy-files",
