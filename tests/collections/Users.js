@@ -22,7 +22,11 @@ controller(
     route.post('/', useCreateModel, {
       accepts: [
         'UserCreate',
-        { schema: 'UserCreateAdmin', handler: request => !!request.user?.admin }
+        {
+          schema: 'UserCreateAdmin',
+          handler: request => !!request.user?.admin,
+          description: 'If user is admin'
+        }
       ],
       returns: {
         201: 'User',

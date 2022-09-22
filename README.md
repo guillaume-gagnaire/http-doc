@@ -55,24 +55,26 @@ api.setup()
 
 ## Api Options
 
-| Parameter       | Type                    | Description                                                                                                |
-| :-------------- | :---------------------- | :--------------------------------------------------------------------------------------------------------- |
-| `getUserAccess` | `string/array/function` | List of user access list. Can be a single string, or a function returning a string or an array of strings. |
-| `drivers`       | `object`                | Provides plugins to use for ORM or HTTP framework interaction.                                             |
-| `drivers.orm`   | `class`                 | Provides plugin to use for ORM interaction.                                                                |
-| `drivers.http`  | `class`                 | Provides plugin to use for HTTP framework interaction.                                                     |
+| Parameter           | Type                    | Description                                                                                                |
+| :------------------ | :---------------------- | :--------------------------------------------------------------------------------------------------------- |
+| `getUserAccess`     | `string/array/function` | List of user access list. Can be a single string, or a function returning a string or an array of strings. |
+| `drivers`           | `object`                | Provides plugins to use for ORM or HTTP framework interaction.                                             |
+| `drivers.orm`       | `class`                 | Provides plugin to use for ORM interaction.                                                                |
+| `drivers.http`      | `class`                 | Provides plugin to use for HTTP framework interaction.                                                     |
+| `documentationPath` | `string`                | Documentation display path (Default: /docs)                                                                |
+| `prefix`            | `string`                | Prefix for all routes                                                                                      |
+| `http`              | `object`                | HTTP framework instance                                                                                    |
 
 ## Route Options
 
-| Parameter        | Type                    | Description                                                                                                                                                                                                                                |
-| :--------------- | :---------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `title`          | `string`                | Endpoint name in documentation.                                                                                                                                                                                                            |
-| `description`    | `string`                | Endpoint description in documentation.                                                                                                                                                                                                     |
-| `access`         | `string/array/function` | List of user access list. Can be a single string, or a function returning a string or an array of strings.                                                                                                                                 |
-| `accepts`        | `string/array/object`   | Restricts input with provided OpenAPI Schema (string representing file path from root folder, direct schema or an array of objects representing : `{schema: String, handler: Function}`, the result being a mix of all validated schemas.) |
-| `returns`        | `object`                | List of possible returned data, by HTTP code                                                                                                                                                                                               |
-| `returns.{code}` | `string`                | OpenAPI Schema path from root folder.                                                                                                                                                                                                      |
-| `accessFns`      | `function/function[]`   | Provides a list of async functions called to check if user can or not access this document.                                                                                                                                                |
+| Parameter        | Type                    | Description                                                                                                                                                                                                                                                                                                    |
+| :--------------- | :---------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `title`          | `string`                | Endpoint name in documentation.                                                                                                                                                                                                                                                                                |
+| `description`    | `string`                | Endpoint description in documentation.                                                                                                                                                                                                                                                                         |
+| `access`         | `string/array/function` | List of user access requirements. Can be a string, a function or an array of string or functions. Functions will return a boolean.                                                                                                                                                                             |
+| `accepts`        | `string/array/object`   | Restricts input with provided OpenAPI Schema. Can be a string (file path to schema), an object (OpenAPI schema), or an array of strings (file path to schema) or objects (direct schema or conditional object : `{schema: String, handler: Function, description: String}`). Validated schemas will be merged. |
+| `returns`        | `object`                | List of possible returned data, by HTTP code                                                                                                                                                                                                                                                                   |
+| `returns.{code}` | `string`                | OpenAPI Schema path from root folder.                                                                                                                                                                                                                                                                          |
 
 ## Decorators
 

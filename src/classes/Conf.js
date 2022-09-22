@@ -1,6 +1,15 @@
 import { getProperty, setProperty } from 'dot-prop'
 
-const options = {}
+const options = {
+  documentationPath: '/docs',
+  prefix: '/',
+  http: null,
+  drivers: {
+    orm: null,
+    http: null
+  },
+  getUserAccess: _ => []
+}
 
 export default class Conf {
   static get (key, defaultValue = null) {
