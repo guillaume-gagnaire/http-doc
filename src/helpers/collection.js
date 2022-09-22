@@ -8,18 +8,25 @@ export default function collection (name, cb, options = {}) {
 
   const router = (method, path, controller, opts = {}) => {
     const optsFromController = extractOptionsFromController(controller)
+
     if (opts.title === undefined && optsFromController.title !== undefined)
       opts.title = optsFromController.title
+
     if (
       opts.description === undefined &&
       optsFromController.description !== undefined
     )
       opts.description = optsFromController.description
+
     if (
       opts.accepts === undefined &&
       [null, undefined].includes(optsFromController.accepts) === false
     )
       opts.accepts = optsFromController.accepts
+
+    if (opts.access === undefined)
+      opts.access = optsFromController.access ?? true
+
     if (opts.returns === undefined) opts.returns = {}
     for (let code in optsFromController.returns ?? {}) {
       if (opts.returns[code] === undefined)
