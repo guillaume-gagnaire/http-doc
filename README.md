@@ -143,3 +143,7 @@ controller(
 ```
 
 The `id` param, in the route, is mandatory to allow theses generic controllers to find correct documents.
+
+## Authors
+
+- [@guillaume-gagnaire](https://www.github.com/guillaume-gagnaire)
