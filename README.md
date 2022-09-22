@@ -146,6 +146,42 @@ controller(
 
 The `id` param, in the route, is mandatory to allow theses generic controllers to find correct documents.
 
+## Access Control Lists
+
+ACL is based on custom strings, like `admin`, `users:list`, per example. You define which permissions a user have, and he'll be able to access only routes with correct permissions.
+
+### Examples
+
+```js
+import { Api, collection } from 'orm-to-api'
+
+const api = new Api({
+  getUserAccess: request => {
+    // Logged in user :
+    /* {
+      permissions: ['users:list', 'users:create']
+    } */
+    return request.user.permissions
+  }
+})
+
+controller('Users', router => {
+  router.get('/', listController, {
+    access: 'users:list' // Will have access to this endpoint
+  })
+  router.post('/', createController, {
+    access: ['admin', 'users:create'] // Will have access to this endpoint, because one of the requirements is fulfilled
+  })
+  router.put('/:id', updateController, {
+    access: [
+      'admin',
+      'users:edit',
+      request => request.params.id === request.user.id
+    ] // Will not have access to this endpoint if he tries to edit another user
+  })
+})
+```
+
 ## Authors
 
 - [@guillaume-gagnaire](https://www.github.com/guillaume-gagnaire)
