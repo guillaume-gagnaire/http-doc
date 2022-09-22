@@ -1,18 +1,30 @@
 import Api from './classes/Api'
 
-import listModel from './helpers/listModel'
-import getModel from './helpers/GetModel'
-import createModel from './helpers/createModel'
-import updateModel from './helpers/updateModel'
-import replaceModel from './helpers/replaceModel'
-import deleteModel from './helpers/deleteModel'
+import apiTitle from './helpers/apiTitle'
+import apiDescription from './helpers/apiDescription'
+import apiAccepts from './helpers/apiAccepts'
+import apiReturns from './helpers/apiReturns'
+
+import collection from './helpers/collection'
+
+import useListModel from './helpers/useListModel'
+import useGetModel from './helpers/useGetModel'
+import useCreateModel from './helpers/useCreateModel'
+import useUpdateModel from './helpers/useUpdateModel'
+import useReplaceModel from './helpers/useReplaceModel'
+import useDeleteModel from './helpers/useDeleteModel'
 
 export default {
   Api,
-  listModel,
-  getModel,
-  createModel,
-  updateModel,
-  replaceModel,
-  deleteModel
+  apiTitle,
+  apiDescription,
+  apiAccepts,
+  apiReturns,
+  collection,
+  useListModel,
+  useGetModel,
+  useCreateModel,
+  useUpdateModel,
+  useReplaceModel,
+  useDeleteModel
 }

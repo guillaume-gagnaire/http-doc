@@ -1,4 +1,4 @@
-export default function deleteModel (model) {
+export default function useDeleteModel (model) {
   return async (request, reply) => {
     return { todo: true }
   }
