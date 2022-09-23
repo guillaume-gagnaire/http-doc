@@ -185,7 +185,7 @@ controller('Users', router => {
 
 ## OpenAPI Schemas
 
-Input data and returned data filtering works with OpenAPI Schemas, stored where you want on your project folder in `JSON` format. References are relative to index script location.
+Input data and returned data filtering works with OpenAPI Schemas, stored where you want on your project folder in `JSON` format. References are relative to the provided schemas folder when initializing API.
 
 Example :
 
