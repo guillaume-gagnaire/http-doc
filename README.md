@@ -1,34 +1,32 @@
-# orm-to-api
+# http-doc
 
-Simple library to create API, with your favorite ORM/ODM, http framework.
+Creates your HTTP routes with ACL, data filtering and automatic documentation.
 
 ## Features
 
 - Documentation on routes or controllers
 - Automatic OpenAPI documentation generator
 - Access control management
-- Basic CRUD controllers embedded (with HATEOAS)
-- MessagePack implementation
-- Plugin system to handle additional ORM or HTTP frameworks
+- Plugin system to handle additional HTTP frameworks
 
 ## Installation
 
-Install orm-to-api with `npm`
+Install http-doc with `npm`
 
 ```bash
-npm install orm-to-api --save
+npm install http-doc --save
 ```
 
 or with `yarn`
 
 ```bash
-yarn add orm-to-api
+yarn add http-doc
 ```
 
 ## API instanciation
 
 ```js
-import { Api, collection } from 'orm-to-api'
+import { Api, collection } from 'http-doc'
 
 const api = new Api({
   // options, see Api Options section
@@ -58,9 +56,7 @@ api.setup()
 | Parameter           | Type                    | Description                                                                                                |
 | :------------------ | :---------------------- | :--------------------------------------------------------------------------------------------------------- |
 | `getUserAccess`     | `string/array/function` | List of user access list. Can be a single string, or a function returning a string or an array of strings. |
-| `drivers`           | `object`                | Provides plugins to use for ORM or HTTP framework interaction.                                             |
-| `drivers.orm`       | `class`                 | Provides plugin to use for ORM interaction.                                                                |
-| `drivers.http`      | `class`                 | Provides plugin to use for HTTP framework interaction.                                                     |
+| `driver`            | `class`                 | Provides plugin to use for HTTP framework interaction.                                                     |
 | `documentationPath` | `string`                | Documentation display path (Default: /docs)                                                                |
 | `prefix`            | `string`                | Prefix for all routes                                                                                      |
 | `http`              | `object`                | HTTP framework instance                                                                                    |
@@ -88,7 +84,7 @@ import {
   apiAccess,
   apiAccepts,
   apiReturns
-} from 'orm-to-api'
+} from 'http-doc'
 
 export default class UsersController {
   @apiTitle('Login')
@@ -113,40 +109,6 @@ You need to add babel configuration to handle ES6 decorators (experimental for n
 }
 ```
 
-## CRUD
-
-CRUD methods are provided to quickly implement CRUD on your ORM models :
-
-```js
-import {
-  controller,
-  useCreateModel,
-  useDeleteModel,
-  useGetModel,
-  useListModel,
-  useReplaceModel,
-  useUpdateModel
-} from 'orm-to-api'
-import UserModel from '../models/User'
-
-controller(
-  'Users',
-  router => {
-    router.get('/', useListModel(UserModel))
-    router.post('/', useCreateModel(UserModel))
-    router.get('/:id', useGetModel(UserModel))
-    router.put('/:id', useReplaceModel(UserModel))
-    router.patch('/:id', useUpdateModel(UserModel))
-    router.delete('/:id', useDeleteModel(UserModel))
-  },
-  {
-    prefix: '/users'
-  }
-)
-```
-
-The `id` param, in the route, is mandatory to allow theses generic controllers to find correct documents.
-
 ## Access Control Lists
 
 ACL is based on custom strings, like `admin`, `users:list`, per example. You define which permissions a user have, and he'll be able to access only routes with correct permissions.
@@ -154,7 +116,7 @@ ACL is based on custom strings, like `admin`, `users:list`, per example. You def
 ### Example
 
 ```js
-import { Api, collection } from 'orm-to-api'
+import { Api, collection } from 'http-doc'
 
 const api = new Api({
   getUserAccess: request => {
@@ -218,7 +180,7 @@ You can filter input data with `accepts` configuration field on routes.
 ### Example
 
 ```js
-import { collection } from 'orm-to-api'
+import { collection } from 'http-doc'
 import UserGetFilter from '../UserGetFilter.json'
 
 controller('Users', router => {
@@ -248,7 +210,7 @@ With `returns` route configuration parameter, you can automatically filter data 
 ### Example
 
 ```js
-import { collection } from 'orm-to-api'
+import { collection } from 'http-doc'
 import UserGetFilter from '../UserGetFilter.json'
 
 controller('Users', router => {

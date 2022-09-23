@@ -8,13 +8,6 @@ import apiReturns from './helpers/apiReturns'
 
 import collection from './helpers/collection'
 
-import useListModel from './helpers/useListModel'
-import useGetModel from './helpers/useGetModel'
-import useCreateModel from './helpers/useCreateModel'
-import useUpdateModel from './helpers/useUpdateModel'
-import useReplaceModel from './helpers/useReplaceModel'
-import useDeleteModel from './helpers/useDeleteModel'
-
 export default {
   Api,
   apiTitle,
@@ -22,11 +15,5 @@ export default {
   apiAccepts,
   apiAccess,
   apiReturns,
-  collection,
-  useListModel,
-  useGetModel,
-  useCreateModel,
-  useUpdateModel,
-  useReplaceModel,
-  useDeleteModel
+  collection
 }

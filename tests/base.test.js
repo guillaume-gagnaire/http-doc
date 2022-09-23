@@ -7,10 +7,7 @@ const api = new Api({
   getUserAccess: request => {
     return ['admin', `user:${request.user?.id}`]
   },
-  drivers: {
-    orm: _ => {},
-    http: _ => {}
-  }
+  driver: _ => {}
 })
 
 // test('adds 1 + 2 to equal 3', () => {
