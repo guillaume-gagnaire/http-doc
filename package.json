@@ -1,9 +1,9 @@
 {
   "name": "http-doc",
   "description": "Creates your HTTP routes with ACL, data filtering and automatic documentation.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.js",
-  "repository": "git@github.com:guillaume-gagnaire/orm-to-api.git",
+  "repository": "git@github.com:guillaume-gagnaire/http-doc.git",
   "author": "Guillaume Gagnaire <contact@scrola.net>",
   "license": "MIT",
   "scripts": {
