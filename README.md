@@ -78,22 +78,16 @@ api.setup()
 Decorators are provided to configure your routes, directly from the controllers :
 
 ```js
-import {
-  apiTitle,
-  apiDescription,
-  apiAccess,
-  apiAccepts,
-  apiReturns
-} from 'http-doc'
+import { title, description, access, accepts, returns } from 'http-doc'
 
 export default class UsersController {
-  @apiTitle('Login')
-  @apiDescription('Logs in a user')
-  @apiAccess(true)
-  @apiAccepts('Login')
-  @apiReturns(200, 'UserJwt')
-  @apiReturns(403, 'Error')
-  @apiReturns(500, 'Error')
+  @title('Login')
+  @description('Logs in a user')
+  @access(true)
+  @accepts('Login')
+  @returns(200, 'UserJwt')
+  @returns(403, 'Error')
+  @returns(500, 'Error')
   static async login (request, reply, routeConf) {
     // Handling login
     return { loggedIn: true }

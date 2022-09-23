@@ -1,19 +1,19 @@
 import Api from './classes/Api'
 
-import apiTitle from './helpers/apiTitle'
-import apiDescription from './helpers/apiDescription'
-import apiAccepts from './helpers/apiAccepts'
-import apiAccess from './helpers/apiAccess'
-import apiReturns from './helpers/apiReturns'
+import title from './helpers/title'
+import description from './helpers/description'
+import accepts from './helpers/accepts'
+import access from './helpers/access'
+import returns from './helpers/returns'
 
 import collection from './helpers/collection'
 
 export default {
   Api,
-  apiTitle,
-  apiDescription,
-  apiAccepts,
-  apiAccess,
-  apiReturns,
+  title,
+  description,
+  accepts,
+  access,
+  returns,
   collection
 }
