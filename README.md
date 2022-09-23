@@ -64,6 +64,7 @@ api.setup()
 | `documentationPath` | `string`                | Documentation display path (Default: /docs)                                                                |
 | `prefix`            | `string`                | Prefix for all routes                                                                                      |
 | `http`              | `object`                | HTTP framework instance                                                                                    |
+| `schemasFolder`     | `string`                | Path to folder containing all OpenAPI Schemas (default: schemas)                                           |
 
 ## Route Options
 
@@ -93,10 +94,10 @@ export default class UsersController {
   @apiTitle('Login')
   @apiDescription('Logs in a user')
   @apiAccess(true)
-  @apiAccepts('schemas/Login')
-  @apiReturns(200, 'schemas/UserJwt')
-  @apiReturns(403, 'schemas/Error')
-  @apiReturns(500, 'schemas/Error')
+  @apiAccepts('Login')
+  @apiReturns(200, 'UserJwt')
+  @apiReturns(403, 'Error')
+  @apiReturns(500, 'Error')
   static async login (request, reply, routeConf) {
     // Handling login
     return { loggedIn: true }
@@ -197,7 +198,7 @@ Example :
       "type": "string"
     },
     "address": {
-      "$ref": "schemas/Address"
+      "$ref": "Address"
     },
     "age": {
       "type": "integer",
@@ -218,20 +219,20 @@ You can filter input data with `accepts` configuration field on routes.
 
 ```js
 import { collection } from 'orm-to-api'
-import UserGetFilter from '../schemas/UserGetFilter.json'
+import UserGetFilter from '../UserGetFilter.json'
 
 controller('Users', router => {
   router.get('/', listController, {
-    accepts: 'schemas/UserListFilters'
+    accepts: 'UserListFilters'
   })
   router.get('/:id', listController, {
     accepts: UserGetFilter
   })
   router.post('/', createController, {
     accepts: [
-      'schemas/UserCreate',
+      'UserCreate',
       {
-        schema: 'schemas/UserCreateAdmin',
+        schema: 'UserCreateAdmin',
         handler: request => !!request.user?.admin,
         description: 'If user is admin'
       }
@@ -248,29 +249,29 @@ With `returns` route configuration parameter, you can automatically filter data 
 
 ```js
 import { collection } from 'orm-to-api'
-import UserGetFilter from '../schemas/UserGetFilter.json'
+import UserGetFilter from '../UserGetFilter.json'
 
 controller('Users', router => {
   router.get('/', listController, {
     returns: {
-      200: 'schemas/UserLite',
-      403: 'schemas/Error',
-      500: 'schemas/Error'
+      200: 'UserLite',
+      403: 'Error',
+      500: 'Error'
     }
   })
   router.get('/:id', listController, {
     returns: {
-      200: 'schemas/User',
-      403: 'schemas/Error',
-      500: 'schemas/Error'
+      200: 'User',
+      403: 'Error',
+      500: 'Error'
     }
   })
   router.post('/', createController, {
     returns: {
-      201: 'schemas/User',
-      400: 'schemas/Error',
-      403: 'schemas/Error',
-      500: 'schemas/Error'
+      201: 'User',
+      400: 'Error',
+      403: 'Error',
+      500: 'Error'
     }
   })
 })

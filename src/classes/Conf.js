@@ -8,7 +8,8 @@ const options = {
     orm: null,
     http: null
   },
-  getUserAccess: _ => []
+  getUserAccess: _ => [],
+  schemasFolder: 'schemas'
 }
 
 export default class Conf {
