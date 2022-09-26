@@ -5,6 +5,7 @@ import description from './helpers/description'
 import accepts from './helpers/accepts'
 import access from './helpers/access'
 import returns from './helpers/returns'
+import parameter from './helpers/parameter'
 
 import collection from './helpers/collection'
 
@@ -15,5 +16,6 @@ export default {
   accepts,
   access,
   returns,
+  parameter,
   collection
 }

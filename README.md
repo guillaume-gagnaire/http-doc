@@ -64,16 +64,19 @@ api.setup()
 
 ## Route Options
 
-| Parameter                    | Type                    | Description                                                                                                                                                                                                                                                                                                    |
-| :--------------------------- | :---------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `title`                      | `string`                | Endpoint name in documentation.                                                                                                                                                                                                                                                                                |
-| `description`                | `string`                | Endpoint description in documentation.                                                                                                                                                                                                                                                                         |
-| `access`                     | `string/array/function` | List of user access requirements. Can be a string, a function or an array of string or functions. Functions will return a boolean.                                                                                                                                                                             |
-| `accepts`                    | `string/array/object`   | Restricts input with provided OpenAPI Schema. Can be a string (file path to schema), an object (OpenAPI schema), or an array of strings (file path to schema) or objects (direct schema or conditional object : `{schema: String, handler: Function, description: String}`). Validated schemas will be merged. |
-| `returns`                    | `object`                | List of possible returned data, by HTTP code.                                                                                                                                                                                                                                                                  |
-| `returns.{code}`             | `object`                | Object describing returned data.                                                                                                                                                                                                                                                                               |
-| `returns.{code}.schema`      | `string`                | OpenAPI Schema path, relative to `schemasFolder` Api configuration field.                                                                                                                                                                                                                                      |
-| `returns.{code}.description` | `string`                | Description of returned data.                                                                                                                                                                                                                                                                                  |
+| Parameter                       | Type                    | Description                                                                                                                                                                                                                                                                                                    |
+| :------------------------------ | :---------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `title`                         | `string`                | Endpoint name in documentation.                                                                                                                                                                                                                                                                                |
+| `description`                   | `string`                | Endpoint description in documentation.                                                                                                                                                                                                                                                                         |
+| `access`                        | `string/array/function` | List of user access requirements. Can be a string, a function or an array of string or functions. Functions will return a boolean.                                                                                                                                                                             |
+| `accepts`                       | `string/array/object`   | Restricts input with provided OpenAPI Schema. Can be a string (file path to schema), an object (OpenAPI schema), or an array of strings (file path to schema) or objects (direct schema or conditional object : `{schema: String, handler: Function, description: String}`). Validated schemas will be merged. |
+| `returns`                       | `object`                | List of possible returned data, by HTTP code.                                                                                                                                                                                                                                                                  |
+| `returns.{code}`                | `object`                | Object describing returned data.                                                                                                                                                                                                                                                                               |
+| `returns.{code}.schema`         | `string`                | OpenAPI Schema path, relative to `schemasFolder` Api configuration field.                                                                                                                                                                                                                                      |
+| `returns.{code}.description`    | `string`                | Description of returned data.                                                                                                                                                                                                                                                                                  |
+| `parameters.{name}`             | `object`                | Object describing parameter.                                                                                                                                                                                                                                                                                   |
+| `parameters.{name}.schema`      | `string`                | OpenAPI Schema path, relative to `schemasFolder` Api configuration field.                                                                                                                                                                                                                                      |
+| `parameters.{name}.description` | `string`                | Description of parameter.                                                                                                                                                                                                                                                                                      |
 
 ## Access Control Lists
 
@@ -138,6 +141,25 @@ Example :
 ```
 
 More info on OpenAPI Schemas [here](https://swagger.io/specification/#schema-object).
+
+## Parameters
+
+With `parameters` route configuration parameter, you can describe and filter parameters located in query, path, headers or cookies.
+
+### Example
+
+```js
+import { collection } from 'http-doc'
+
+controller('Users', router => {
+  router.get('/', listController, {
+    parameters: {
+      page: { schema: 'params/Page', description: 'Page' },
+      limit: { schema: 'params/Limit', description: 'Limit' }
+    }
+  })
+})
+```
 
 ## Input data filtering
 
@@ -210,13 +232,21 @@ controller('Users', router => {
 Decorators are provided to configure your routes, directly from the controllers :
 
 ```js
-import { title, description, access, accepts, returns } from 'http-doc'
+import {
+  title,
+  description,
+  access,
+  accepts,
+  returns,
+  parameter
+} from 'http-doc'
 
 export default class UsersController {
   @title('Login')
   @description('Logs in a user')
   @access(true)
   @accepts('Login')
+  @parameter('source', 'Source', 'Accepted auth source')
   @returns(200, 'UserJwt', 'Authorized JWT token')
   @returns(403, 'Error', 'Invalid credentials')
   @returns(500, 'Error', 'System error')

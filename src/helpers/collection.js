@@ -33,6 +33,17 @@ export default function collection (name, cb, options = {}) {
         opts.returns[code] = optsFromController.returns[code]
     }
 
+    if (opts.parameters === undefined) opts.parameters = {}
+    for (let name in optsFromController.parameters ?? {}) {
+      if (opts.parameters[name] === undefined)
+        opts.parameters[name] = optsFromController.parameters[name]
+      else if (typeof opts.parameters[name] === 'string')
+        opts.parameters[name] = {
+          schema: opts.parameters[name],
+          description: `${name} field`
+        }
+    }
+
     Conf.append(`collections.${name}.routes`, {
       method,
       path,
