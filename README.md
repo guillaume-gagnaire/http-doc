@@ -64,44 +64,16 @@ api.setup()
 
 ## Route Options
 
-| Parameter        | Type                    | Description                                                                                                                                                                                                                                                                                                    |
-| :--------------- | :---------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `title`          | `string`                | Endpoint name in documentation.                                                                                                                                                                                                                                                                                |
-| `description`    | `string`                | Endpoint description in documentation.                                                                                                                                                                                                                                                                         |
-| `access`         | `string/array/function` | List of user access requirements. Can be a string, a function or an array of string or functions. Functions will return a boolean.                                                                                                                                                                             |
-| `accepts`        | `string/array/object`   | Restricts input with provided OpenAPI Schema. Can be a string (file path to schema), an object (OpenAPI schema), or an array of strings (file path to schema) or objects (direct schema or conditional object : `{schema: String, handler: Function, description: String}`). Validated schemas will be merged. |
-| `returns`        | `object`                | List of possible returned data, by HTTP code                                                                                                                                                                                                                                                                   |
-| `returns.{code}` | `string`                | OpenAPI Schema path from root folder.                                                                                                                                                                                                                                                                          |
-
-## Decorators
-
-Decorators are provided to configure your routes, directly from the controllers :
-
-```js
-import { title, description, access, accepts, returns } from 'http-doc'
-
-export default class UsersController {
-  @title('Login')
-  @description('Logs in a user')
-  @access(true)
-  @accepts('Login')
-  @returns(200, 'UserJwt')
-  @returns(403, 'Error')
-  @returns(500, 'Error')
-  static async login (request, reply, routeConf) {
-    // Handling login
-    return { loggedIn: true }
-  }
-}
-```
-
-You need to add babel configuration to handle ES6 decorators (experimental for now):
-
-```json
-{
-  "plugins": [["@babel/plugin-proposal-decorators", { "version": "2022-03" }]]
-}
-```
+| Parameter                    | Type                    | Description                                                                                                                                                                                                                                                                                                    |
+| :--------------------------- | :---------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `title`                      | `string`                | Endpoint name in documentation.                                                                                                                                                                                                                                                                                |
+| `description`                | `string`                | Endpoint description in documentation.                                                                                                                                                                                                                                                                         |
+| `access`                     | `string/array/function` | List of user access requirements. Can be a string, a function or an array of string or functions. Functions will return a boolean.                                                                                                                                                                             |
+| `accepts`                    | `string/array/object`   | Restricts input with provided OpenAPI Schema. Can be a string (file path to schema), an object (OpenAPI schema), or an array of strings (file path to schema) or objects (direct schema or conditional object : `{schema: String, handler: Function, description: String}`). Validated schemas will be merged. |
+| `returns`                    | `object`                | List of possible returned data, by HTTP code.                                                                                                                                                                                                                                                                  |
+| `returns.{code}`             | `object`                | Object describing returned data.                                                                                                                                                                                                                                                                               |
+| `returns.{code}.schema`      | `string`                | OpenAPI Schema path, relative to `schemasFolder` Api configuration field.                                                                                                                                                                                                                                      |
+| `returns.{code}.description` | `string`                | Description of returned data.                                                                                                                                                                                                                                                                                  |
 
 ## Access Control Lists
 
@@ -210,27 +182,57 @@ import UserGetFilter from '../UserGetFilter.json'
 controller('Users', router => {
   router.get('/', listController, {
     returns: {
-      200: 'UserLite',
-      403: 'Error',
-      500: 'Error'
+      200: { schema: 'UserLite', description: 'User data' },
+      403: { schema: 'Error', description: 'Not authorized' },
+      500: { schema: 'Error', description: 'Unknown error' }
     }
   })
   router.get('/:id', listController, {
     returns: {
-      200: 'User',
-      403: 'Error',
-      500: 'Error'
+      200: { schema: 'User', description: 'User data' },
+      403: { schema: 'Error', description: 'Not authorized' },
+      500: { schema: 'Error', description: 'Unknown error' }
     }
   })
   router.post('/', createController, {
     returns: {
-      201: 'User',
-      400: 'Error',
-      403: 'Error',
-      500: 'Error'
+      201: { schema: 'User', description: 'User data' },
+      400: { schema: 'Error', description: 'Bad input data' },
+      403: { schema: 'Error', description: 'Not authorized' },
+      500: { schema: 'Error', description: 'Unknown error' }
     }
   })
 })
+```
+
+## Decorators
+
+Decorators are provided to configure your routes, directly from the controllers :
+
+```js
+import { title, description, access, accepts, returns } from 'http-doc'
+
+export default class UsersController {
+  @title('Login')
+  @description('Logs in a user')
+  @access(true)
+  @accepts('Login')
+  @returns(200, 'UserJwt', 'Authorized JWT token')
+  @returns(403, 'Error', 'Invalid credentials')
+  @returns(500, 'Error', 'System error')
+  static async login (request, reply, routeConf) {
+    // Handling login
+    return { loggedIn: true }
+  }
+}
+```
+
+You need to add babel configuration to handle ES6 decorators (experimental for now):
+
+```json
+{
+  "plugins": [["@babel/plugin-proposal-decorators", { "version": "2022-03" }]]
+}
 ```
 
 ## Authors
