@@ -144,6 +144,23 @@ Example :
 
 More info on OpenAPI Schemas [here](https://swagger.io/specification/#schema-object).
 
+Handled string formats :
+
+- date
+- date-time
+- byte (or base64)
+- email
+- uuid
+- objectid
+- uri
+
+Unsupported features :
+
+- allOf
+- anyOf
+- oneOf
+- not
+
 ## Parameters
 
 With `parameters` route configuration parameter, you can describe and filter parameters located in query, path, headers or cookies.

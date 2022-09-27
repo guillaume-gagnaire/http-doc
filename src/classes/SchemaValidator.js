@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import fs from 'fs'
 import path from 'path'
 import Conf from './Conf'
@@ -94,6 +95,77 @@ export default class SchemaValidator {
         )
       }
     }
+  }
+
+  validateFormat (obj, schema, field = '') {
+    switch (schema?.format) {
+      case 'date':
+        obj = dayjs(obj)
+        if (!obj.isValid())
+          throw new Error(
+            `${field.length ? field : 'Value'} is not a valid date.`
+          )
+        return obj.format('YYYY-MM-DD')
+      case 'date-time':
+        obj = dayjs(obj)
+        if (!obj.isValid())
+          throw new Error(
+            `${field.length ? field : 'Value'} is not a valid date.`
+          )
+        return obj.format('YYYY-MM-DDTHH:mm:ssZ[Z]')
+      case 'byte':
+      case 'base64':
+        if (
+          /^(?:[a-z0-9+\/]{4})*(?:[a-z0-9+\/]{4}|[a-z0-9+\/]{3}=|[a-z0-9+\/]{2}={2})$/i.test(
+            obj
+          ) === false
+        )
+          throw new Error(
+            `${
+              field.length ? field : 'Value'
+            } is not a valid Base64 encoded string.`
+          )
+        break
+      case 'email':
+        if (
+          /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
+            obj
+          ) === false
+        )
+          throw new Error(
+            `${field.length ? field : 'Value'} is not a valid email.`
+          )
+        break
+      case 'uuid':
+        if (
+          /^[0-9a-f]{8}\b-[0-9a-f]{4}\b-[0-9a-f]{4}\b-[0-9a-f]{4}\b-[0-9a-f]{12}$/i.test(
+            obj
+          ) === false
+        )
+          throw new Error(
+            `${field.length ? field : 'Value'} is not a valid uuid.`
+          )
+        break
+      case 'objectid':
+        if (/^[a-f\d]{24}$/i.test(obj) === false)
+          throw new Error(
+            `${field.length ? field : 'Value'} is not a valid objectid.`
+          )
+        break
+      case 'uri':
+        if (
+          /[-a-z0-9@:%._\+~#=]{1,256}\.[a-z0-9()]{1,6}\b([-a-z0-9()@:%_\+.~#?&//=]*)/i.test(
+            obj
+          ) === false
+        )
+          throw new Error(
+            `${field.length ? field : 'Value'} is not a valid URI.`
+          )
+        if (obj.substring(0, 4) !== 'http') obj = `http://${obj}`
+        break
+    }
+
+    return obj
   }
 
   async validate (obj, schema, field = '') {
@@ -247,6 +319,8 @@ export default class SchemaValidator {
           throw new Error(
             `${field.length ? field : 'Value'} does not match required pattern.`
           )
+
+        obj = this.validateFormat(obj, schema, field)
         this.validateEnum([obj], schema, field)
         break
       case 'integer':
