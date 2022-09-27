@@ -9,7 +9,9 @@ const options = {
     http: null
   },
   getUserAccess: _ => [],
-  schemasFolder: 'schemas'
+  schemasFolder: 'schemas',
+  monitor: false,
+  monitorAccess: _ => true
 }
 
 export default class Conf {
