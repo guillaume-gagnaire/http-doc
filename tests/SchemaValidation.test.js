@@ -23,7 +23,7 @@ describe('Schema Validation', () => {
         cars: 2,
         money: 287.29,
         avatarBase64: 'b2s=',
-        welcomed: true
+        welcomed: false
       },
       'User'
     )

@@ -1,7 +1,5 @@
 {
   "verbose": true,
-  "testTimeout": 3000,
-  "maxConcurrency": 1,
   "testEnvironment": "node",
   "collectCoverage": true,
   "collectCoverageFrom": ["src/classes/*.js", "!**/node_modules/**"]

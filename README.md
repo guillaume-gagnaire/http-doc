@@ -1,3 +1,5 @@
+[![Coverage Badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/guillaume-gagnaire/749295e6305fadabd993325b79b60b6e/raw/http-doc__heads_main.json)]
+
 # http-doc
 
 Creates your HTTP routes with ACL, data filtering and automatic documentation.
