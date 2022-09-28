@@ -137,7 +137,6 @@ Example :
     },
     "age": {
       "type": "integer",
-      "format": "int32",
       "minimum": 0
     }
   }
