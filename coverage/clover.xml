@@ -1,25 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1664356386263" clover="3.2.0">
-  <project timestamp="1664356386263" name="All files">
-    <metrics statements="137" coveredstatements="15" conditionals="204" coveredconditionals="3" methods="18" coveredmethods="6" elements="359" coveredelements="24" complexity="0" loc="137" ncloc="137" packages="1" files="3" classes="3"/>
+<coverage generated="1664359409206" clover="3.2.0">
+  <project timestamp="1664359409206" name="All files">
+    <metrics statements="134" coveredstatements="21" conditionals="204" coveredconditionals="8" methods="16" coveredmethods="8" elements="354" coveredelements="37" complexity="0" loc="134" ncloc="134" packages="1" files="3" classes="3"/>
     <file name="Api.js" path="/Users/guillaume/perso/apify/src/classes/Api.js">
       <metrics statements="1" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="2" coveredmethods="0"/>
       <line num="5" count="0" type="stmt"/>
     </file>
     <file name="Conf.js" path="/Users/guillaume/perso/apify/src/classes/Conf.js">
-      <metrics statements="12" coveredstatements="3" conditionals="5" coveredconditionals="0" methods="6" coveredmethods="2"/>
-      <line num="3" count="1" type="stmt"/>
-      <line num="11" count="0" type="stmt"/>
-      <line num="14" count="0" type="stmt"/>
-      <line num="19" count="3" type="stmt"/>
-      <line num="23" count="1" type="stmt"/>
-      <line num="27" count="0" type="stmt"/>
-      <line num="28" count="0" type="stmt"/>
-      <line num="33" count="0" type="stmt"/>
-      <line num="34" count="0" type="cond" truecount="0" falsecount="4"/>
-      <line num="35" count="0" type="stmt"/>
-      <line num="37" count="0" type="stmt"/>
-      <line num="38" count="0" type="stmt"/>
+      <metrics statements="9" coveredstatements="9" conditionals="5" coveredconditionals="5" methods="4" coveredmethods="4"/>
+      <line num="20" count="18" type="stmt"/>
+      <line num="24" count="7" type="stmt"/>
+      <line num="28" count="1" type="stmt"/>
+      <line num="29" count="2" type="stmt"/>
+      <line num="34" count="2" type="stmt"/>
+      <line num="35" count="2" type="cond" truecount="4" falsecount="0"/>
+      <line num="36" count="1" type="stmt"/>
+      <line num="38" count="2" type="stmt"/>
+      <line num="39" count="2" type="stmt"/>
     </file>
     <file name="SchemaValidator.js" path="/Users/guillaume/perso/apify/src/classes/SchemaValidator.js">
       <metrics statements="124" coveredstatements="12" conditionals="198" coveredconditionals="3" methods="10" coveredmethods="4"/>

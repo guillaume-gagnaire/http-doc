@@ -1,5 +1,6 @@
 import objectPath from 'object-path'
 
+/* istanbul ignore next */
 const options = {
   documentationPath: '/docs',
   prefix: '/',
@@ -25,12 +26,12 @@ export default class Conf {
 
   static setMany (obj) {
     for (let key in obj) {
-      Conf.set(key, obj[value])
+      Conf.set(key, obj[key])
     }
   }
 
   static append (key, value) {
-    const arr = Conf.get(key, [])
+    let arr = Conf.get(key, [])
     if (!arr || arr instanceof Array === false) {
       arr = []
     }
