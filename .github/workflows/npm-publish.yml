@@ -16,12 +16,9 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: yarn install
       - run: yarn build
-      - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
       - name: Get Coverage for badge
         run: |
-          SUMMARY="$(yarn test -- --coverageReporters='text-summary' | tail -2 | head -1)"
+          SUMMARY="$(npm test -- --coverageReporters='text-summary' | tail -2 | head -1)"
           TOKENS=($SUMMARY)
           # process.env.COVERAGE = '31.93%';
           echo "COVERAGE=$(echo ${TOKENS[2]})" >> $GITHUB_ENV
@@ -48,3 +45,6 @@ jobs:
           message: ${{ env.COVERAGE }}
           color: green
           namedLogo: jest
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
