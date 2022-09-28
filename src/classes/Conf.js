@@ -5,11 +5,8 @@ const options = {
   documentationPath: '/swagger.json',
   documentationAccess: _ => true,
   prefix: '/',
-  http: null,
-  drivers: {
-    orm: null,
-    http: null
-  },
+  driver: null,
+  app: null,
   getUserAccess: _ => [],
   schemasFolder: 'schemas',
   monitor: false,
