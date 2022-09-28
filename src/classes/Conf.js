@@ -1,4 +1,4 @@
-import { getProperty, setProperty } from 'dot-prop'
+import objectPath from 'object-path'
 
 const options = {
   documentationPath: '/docs',
@@ -16,11 +16,11 @@ const options = {
 
 export default class Conf {
   static get (key, defaultValue = null) {
-    return getProperty(options, key, defaultValue)
+    return objectPath.get(options, key, defaultValue)
   }
 
   static set (key, value) {
-    setProperty(options, key, value)
+    objectPath.set(options, key, value)
   }
 
   static setMany (obj) {

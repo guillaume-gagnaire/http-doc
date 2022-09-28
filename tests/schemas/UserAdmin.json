@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "required": ["email", "firstname", "lastname"],
+  "properties": {
+    "firstname": {
+      "type": "string"
+    },
+    "lastname": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string",
+      "format": "email"
+    },
+    "avatar": {
+      "type": "string",
+      "format": "uri"
+    },
+    "admin": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}
