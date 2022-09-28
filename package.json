@@ -1,7 +1,7 @@
 {
   "name": "http-doc",
   "description": "Creates your HTTP routes with ACL, data filtering and automatic documentation.",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "main": "dist/index.js",
   "repository": "git@github.com:guillaume-gagnaire/http-doc.git",
   "author": "Guillaume Gagnaire <contact@scrola.net>",

@@ -55,16 +55,17 @@ api.setup()
 
 ## Api Options
 
-| Parameter           | Type                    | Description                                                                                                                         |
-| :------------------ | :---------------------- | :---------------------------------------------------------------------------------------------------------------------------------- |
-| `getUserAccess`     | `string/array/function` | List of user access list. Can be a single string, or a function returning a string or an array of strings.                          |
-| `driver`            | `class`                 | Provides plugin to use for HTTP framework interaction.                                                                              |
-| `documentationPath` | `string`                | Documentation display path (Default: /docs)                                                                                         |
-| `prefix`            | `string`                | Prefix for all routes                                                                                                               |
-| `http`              | `object`                | HTTP framework instance                                                                                                             |
-| `schemasFolder`     | `string`                | Path to folder containing all OpenAPI Schemas (default: schemas)                                                                    |
-| `monitor`           | `boolean`               | Monitor all API calls (count, time metrics). Creates a set of monitoring API endpoints (See Monitoring section). (default: `false`) |
-| `monitorAccess`     | `function`              | Function used to restrict access to the monitoring API. (default: `request => true`)                                                |
+| Parameter             | Type                    | Description                                                                                                                         |
+| :-------------------- | :---------------------- | :---------------------------------------------------------------------------------------------------------------------------------- |
+| `getUserAccess`       | `string/array/function` | List of user access list. Can be a single string, or a function returning a string or an array of strings.                          |
+| `driver`              | `class`                 | Provides plugin to use for HTTP framework interaction.                                                                              |
+| `documentationPath`   | `string`                | Documentation display path (Default: /swagger.json)                                                                                 |
+| `documentationAccess` | `function`              | Function used to restrict access to the documentation configuration file. (default: `request => true`)                              |
+| `prefix`              | `string`                | Prefix for all routes                                                                                                               |
+| `http`                | `object`                | HTTP framework instance                                                                                                             |
+| `schemasFolder`       | `string`                | Path to folder containing all OpenAPI Schemas (default: schemas)                                                                    |
+| `monitor`             | `boolean`               | Monitor all API calls (count, time metrics). Creates a set of monitoring API endpoints (See Monitoring section). (default: `false`) |
+| `monitorAccess`       | `function`              | Function used to restrict access to the monitoring API. (default: `request => true`)                                                |
 
 ## Route Options
 

@@ -2,7 +2,8 @@ import objectPath from 'object-path'
 
 /* istanbul ignore next */
 const options = {
-  documentationPath: '/docs',
+  documentationPath: '/swagger.json',
+  documentationAccess: _ => true,
   prefix: '/',
   http: null,
   drivers: {
