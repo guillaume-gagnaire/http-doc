@@ -2,8 +2,25 @@
   "type": "object",
   "required": ["email", "firstname", "lastname"],
   "properties": {
+    "id": {
+      "type": "null"
+    },
+    "uniqueId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "mongoId": {
+      "type": "string",
+      "format": "objectid"
+    },
+    "pattern": {
+      "type": "string",
+      "pattern": "^A"
+    },
     "firstname": {
-      "type": "string"
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 10
     },
     "lastname": {
       "type": "string"
@@ -15,6 +32,45 @@
     "avatar": {
       "type": "string",
       "format": "uri"
+    },
+    "welcomed": {
+      "type": "boolean",
+      "default": false
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["foo", "bar", "zoo"]
+      },
+      "enum": ["foo", "bar", "zoo"],
+      "minItems": 1,
+      "maxItems": 2,
+      "uniqueItems": true
+    },
+    "birthday": {
+      "type": "string",
+      "format": "date"
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "cars": {
+      "type": "integer",
+      "minimum": 0,
+      "exclusiveMaximum": 10,
+      "multipleOf": 2
+    },
+    "children": {
+      "type": "integer"
+    },
+    "money": {
+      "$ref": "Money"
+    },
+    "avatarBase64": {
+      "type": "string",
+      "format": "base64"
     }
   }
 }

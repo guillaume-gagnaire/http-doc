@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "additionalProperties": {
+    "type": "string"
+  },
+  "minProperties": 1,
+  "maxProperties": 4,
+  "properties": {
+    "id": {
+      "type": "null"
+    }
+  }
+}

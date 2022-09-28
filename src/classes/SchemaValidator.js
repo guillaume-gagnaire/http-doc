@@ -19,16 +19,16 @@ export default class SchemaValidator {
           schema + '.json'
         )
         if (!fs.existsSync(filepath)) {
-          reject(`${filepath} does not exists.`)
+          reject(new Error(`${filepath} does not exists.`))
           return
         }
         fs.readFile(filepath, (err, data) => {
           try {
             schemaCache[schema] = JSON.parse(data.toString())
+            resolve(new SchemaValidator(schemaCache[schema]))
           } catch {
-            reject(`${filepath} is not a valid JSON.`)
+            reject(new Error(`${filepath} is not a valid JSON.`))
           }
-          resolve(new SchemaValidator(schemaCache[schema]))
         })
       } else {
         resolve(new SchemaValidator(schemaCache[schema]))
@@ -143,13 +143,13 @@ export default class SchemaValidator {
           ) === false
         )
           throw new Error(
-            `${field.length ? field : 'Value'} is not a valid uuid.`
+            `${field.length ? field : 'Value'} is not a valid UUID.`
           )
         break
       case 'objectid':
         if (/^[a-f\d]{24}$/i.test(obj) === false)
           throw new Error(
-            `${field.length ? field : 'Value'} is not a valid objectid.`
+            `${field.length ? field : 'Value'} is not a valid ObjectID.`
           )
         break
       case 'uri':
@@ -179,9 +179,6 @@ export default class SchemaValidator {
       return SchemaValidator.filter(obj, schema.$ref)
     }
 
-    if (schema.default !== undefined && obj === undefined)
-      obj = JSON.parse(JSON.stringify(schema.default))
-
     switch (schema.type) {
       case 'null':
         if (obj !== null)
@@ -192,7 +189,6 @@ export default class SchemaValidator {
           throw new Error(
             `${field.length ? field : 'Value'} must be a boolean.`
           )
-        this.validateEnum([obj], schema, field)
         break
       case 'object':
         let ret = {}
@@ -206,20 +202,14 @@ export default class SchemaValidator {
         }
 
         for (let key in obj) {
-          try {
-            ret[key] = this.validate(
-              obj[key],
-              schema.properties[key] ?? schema.additionalProperties ?? true,
-              `${field}${field.length ? '.' : ''}${key}`
-            )
-          } catch (err) {
-            if ((schema.required ?? []).includes(key)) {
-              throw err
-            }
-          }
+          ret[key] = await this.validate(
+            obj[key],
+            schema.properties[key] ?? schema.additionalProperties ?? true,
+            `${field}${field.length ? '.' : ''}${key}`
+          )
         }
 
-        for (let key in schema.required ?? []) {
+        for (let key of schema.required ?? []) {
           if (ret[key] === undefined)
             throw new Error(
               `${field}${field.length ? '.' : ''}${key} is required.`
@@ -252,15 +242,13 @@ export default class SchemaValidator {
 
         for (let idx = 0; idx < (obj ?? []).length; idx++) {
           const item = (obj ?? [])[idx]
-          try {
-            arr.push(
-              this.validate(
-                item,
-                schema.items ?? true,
-                `${field}${field.length ? '.' : ''}${idx}`
-              )
+          arr.push(
+            await this.validate(
+              item,
+              schema.items ?? true,
+              `${field}${field.length ? '.' : ''}${idx}`
             )
-          } catch {}
+          )
         }
 
         if (schema.maxItems !== undefined && arr.length > schema.maxItems)
@@ -307,7 +295,7 @@ export default class SchemaValidator {
 
         if (schema.maxLength !== undefined && obj.length > schema.maxLength)
           throw new Error(
-            `${field.length ? field : 'Value'} must be smaller than ${
+            `${field.length ? field : 'Value'} must be shorter than ${
               schema.maxLength
             } character${schema.maxLength > 1 ? 's' : ''}.`
           )
@@ -315,10 +303,11 @@ export default class SchemaValidator {
         if (
           schema.pattern !== undefined &&
           new RegExp(schema.pattern).test(obj) === false
-        )
+        ) {
           throw new Error(
             `${field.length ? field : 'Value'} does not match required pattern.`
           )
+        }
 
         obj = this.validateFormat(obj, schema, field)
         this.validateEnum([obj], schema, field)

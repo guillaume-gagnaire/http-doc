@@ -1,0 +1,5 @@
+{
+  "type": "number",
+  "exclusiveMinimum": 0,
+  "maximum": 1000000
+}
